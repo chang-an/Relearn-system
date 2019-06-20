@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+  <link rel="stylesheet" href="../../public/css/global.css">
+  <link rel="stylesheet" href="../../public/icheck/minimal/red.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          {{ user.account }}
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="ad_info">基本资料</a></dd>
+          <dd><a href="ad_notice">回到首页</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a href="ad_notice">通知公告</a></li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">系统通知</a>
+		  <dl class="layui-nav-child">
+            <dd><a class="" href="ad_pull">发布公告</a></dd>
+          </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">课程管理</a>
+            <dl class="layui-nav-child">
+                <dd><a href="ad_course">添加课程</a></dd>
+				<dd><a class="layui-this" href="ad_showc">课程信息</a></dd>
+            </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">报名管理</a>
+            <dl class="layui-nav-child">
+                <dd><a href="ad_state">缴费状态</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">用户管理</a>
+          <dl class="layui-nav-child">
+			<dd><a href="ad_create">添加用户</a></dd>
+            <dd><a href="ad_users">用户列表</a></dd>
+			<dd><a href="ad_result">录入成绩</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>课程管理 - 课程信息</legend>
+            <div class="layui-field-box">
+              <hr>
+              <div class="layui-btn-group">
+                  <a href="ad_course" class="layui-btn layui-btn-xs layui-btn-normal dw-dailog">
+                      <i class="layui-icon">&#xe654;</i>新增
+                  </a>
+                  <button class="layui-btn layui-btn-xs dw-refresh">
+                      <i class="layui-icon">&#x1002;</i>刷新
+                  </button>
+              </div>
+              <hr>
+              <form id="showc_form" class="layui-form" action="">
+                  <table class="layui-table">
+                      <colgroup>
+                          <col width="150">
+                          <col width="150">
+                          <col width="200">
+                          <col>
+                          <col>
+                      </colgroup>
+                      <thead>
+                          <tr>
+                              <th>课程编号</th>
+                              <th>课程名称</th>
+                              <th>课程收费</th>
+                              <th>上课地点</th>
+                              <th>上课时间</th>
+                          <th style="text-align:center;">操作</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                    {{each cor}}
+                          <tr>
+                              <td>{{$value.cno}}</td>
+                              <td>{{$value.cname}}</td>
+                              <td>{{$value.ccost}}</td>
+                              <td>{{$value.cplace}}</td>
+                              <td>{{$value.ctime}}</td>
+                              <td class="text-center">
+                                  <div class="layui-btn-group">
+                                      <input type="hidden" name="cno" value="" class="layui-input">
+                                      <a class="layui-btn layui-btn-xs layui-btn-normal dw-dailog" href="ad_editc?cno={{$value.cno}}">
+                                          <i class="layui-icon">&#xe642;</i>编辑
+                                      </a>
+                                      <button lay-submit lay-filter="formDemo" class="layui-btn layui-btn-xs layui-btn-normal dw-dailog">
+                                          <i class="layui-icon">&#xe640;</i>删除
+                                      </button>
+                                  </div>
+                              </td>
+                          </tr>
+                    {{/each}}
+                      </tbody>
+                  </table>
+              </form>
+            </div>
+        </fieldset>
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+   
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+    $('#showc_form').on('submit', function (e) {
+        e.preventDefault()
+        //序列化表单数据
+        var formData = $(this).serialize()
+        console.log(formData)
+        $.ajax({
+            url: '/ad_create',
+            type: 'post',
+            data: 'formData',
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 500){
+                    window.alert('失败')
+
+                }else if(err_code == 0){
+                    window.alert('成功')
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

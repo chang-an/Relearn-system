@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          学生用户
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="s_info">基本资料</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+			<a href="javascript:;">通知公告</a>
+			<dl class="layui-nav-child">
+				<dd><a href="s_notice">系统消息</a></dd>
+			</dl>
+		</li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="s_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">重学报名</a>
+          <dl class="layui-nav-child">
+            <dd><a href="s_enroll">报名入口</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="s_tabll">课表查询</a></dd>
+                <dd><a href="s_exam">考试信息</a></dd>
+            </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">成绩查询</a>
+            <dl class="layui-nav-child">
+                <dd><a href="s_result">重修成绩</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+			<a href="javascript:;">线上辅导</a>
+			<dl class="layui-nav-child">
+				<dd><a class="layui-this" href="s_ask">答疑解惑</a></dd>
+				<dd><a href="s_test">线上测试</a></dd>
+			</dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <fieldset class="layui-elem-field">
+                <legend>线上辅导 - 提问</legend>
+                <hr class="layui-bg-gray">
+                <div class="layui-field-box">
+                    <form id="quest_form" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <input type="hidden" name="qno" value="{{qu[0].qno+1}}" class="layui-input">
+                            <label class="layui-form-label">问题：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <hr class="layui-bg-gray">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发布人：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="name" readonly="readonly" value="{{stu[0].name}}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">时间：</label>
+                            <div class="layui-input-inline">
+                                <input id="time" type="text" name="time" placeholder="请输入日期" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-text">
+                            <label class="layui-form-label">内容：</label>
+                            <div class="layui-input-block">
+                                <textarea name="content" placeholder="请输入" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <hr class="layui-bg-gray">
+                        <div class="layui-form-item">
+                            <div class="layui-input-block layui-form-item">
+                                <button lay-submit lay-filter="formDemo" class="layui-btn">确认发布</button>
+                                <button type="reset" class="layui-btn">重置内容</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        <!--<P id="time">afwef</P>-->
+    </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+    $(function(){
+        //处理时间格式
+         function dateForm() {
+            let dt = new Date()
+            let y = dt.getFullYear()
+            //padStart填充字符串 使时间为两位数
+            let m = (dt.getMonth() + 1).toString().padStart(2,'0')
+            let d = dt.getDate().toString().padStart(2,'0')
+            let hh = dt.getHours().toString().padStart(2,'0')
+            let mm = dt.getMinutes().toString().padStart(2,'0')
+            let ss = dt.getSeconds().toString().padStart(2,'0')
+
+            return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
+        }
+        var t= dateForm();
+        $("#time").val(t)
+    });
+
+    $('#quest_form').on('submit', function (e) {
+        e.preventDefault()
+        //序列化表单数据
+        var formData = $(this).serialize()
+        console.log(formData)
+        $.ajax({
+            url: '/s_quest',
+            type: 'post',
+            data: 'formData',
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 500){
+                    window.alert('发布通告失败。')
+                }else if(err_code == 0){
+                    window.alert('发布通告成功！')
+                    window.location.href = 'ad_notice'
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

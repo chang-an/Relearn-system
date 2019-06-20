@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          学生用户
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="s_info">基本资料</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+			<a href="javascript:;">通知公告</a>
+			<dl class="layui-nav-child">
+				<dd><a href="s_notice">系统消息</a></dd>
+			</dl>
+		</li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="s_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">重学报名</a>
+          <dl class="layui-nav-child">
+            <dd><a href="s_enroll">报名入口</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="s_tabll">课表查询</a></dd>
+                <dd><a href="s_exam">考试信息</a></dd>
+            </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">成绩查询</a>
+            <dl class="layui-nav-child">
+                <dd><a href="s_result">重修成绩</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+			<a href="javascript:;">线上辅导</a>
+			<dl class="layui-nav-child">
+				<dd><a href="s_ask">答疑解惑</a></dd>
+				<dd><a href="s_test">线上测试</a></dd>
+			</dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>线上测试 - 答题页面</legend>
+                <div class="layui-field-box">
+                    <form id="create_form" class="layui-form" action="">
+                        {{ each radi}}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">单选题：</label>
+                            <div class="layui-input-block">
+								<input type="text" name="rtitle" readonly="readonly" value="{{$value.title}}" class="layui-input">
+								<label class="hid layui-word-aux">正确答案是
+                                    <p class="layui-inline" style="color:red;">{{$value.right}}</p>
+                                </label>
+								<div>
+									<input type="radio" name="right[]" value="a" title="a.{{$value.ra}}">
+									<input type="radio" name="right[]" value="b" title="b.{{$value.rb}}">
+								</div>
+								<div>
+								<input type="radio" name="right[]" value="c" title="c.{{$value.rc}}">
+								<input type="radio" name="right[]" value="d" title="d.{{$value.rd}}">
+								</div>
+                            </div>
+                        </div>
+						{{ /each }}
+						{{ each ch}}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">多选题：</label>
+                            <div class="layui-input-block">
+								<input type="text" name="mtitle" readonly="readonly" value="{{$value.title}}" class="layui-input">
+								<label class="hid layui-word-aux">正确答案是
+                                    <p class="layui-inline" style="color:red;">{{$value.right}}</p>
+                                </label>
+								<div>
+									<input type="checkbox" name="right" value="a">a.{{$value.ma}}
+									<input type="checkbox" name="right" value="b">b.{{$value.mb}}
+								</div>
+								<div>
+									<input type="checkbox" name="right" value="c">c.{{$value.mc}}
+									<input type="checkbox" name="right" value="d">d.{{$value.md}}
+								</div>
+								<div>
+									<input type="checkbox" name="right[]" value="e">e.{{$value.me}}
+									<input type="checkbox" name="right" value="f">f.{{$value.mf}}
+								</div>
+                            </div>
+                        </div>
+						{{ /each }}
+						{{ each jud}}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">判断题：</label>
+                            <div class="layui-input-block">
+								<input type="text" name="jtitle" readonly="readonly" value="{{$value.title}}" class="layui-input">
+								<label class="hid layui-word-aux">正确答案是
+									{{if $value.rkey == right}}
+									<p class="layui-inline" style="color:red;">{{@ "✔"}}</p>
+									{{else $value.rkey == wrong}}
+									<p class="layui-inline" style="color:red;">{{@ "✖"}}</p>
+									{{/if}}
+                                </label>
+								<div>
+									<input type="radio" name="right" value="right"><i class="layui-icon">&#xe605;</i>
+								</div>
+								<div>
+									<input type="radio" name="right" value="wrong"><i class="layui-icon">&#x1006;</i>
+								</div>
+                            </div>
+                        </div>
+						{{ /each }}
+						{{ each fil}}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">填空题：</label>
+                            <div class="layui-input-block">
+								<input type="text" name="tirle" readonly="readonly" value="{{$value.title}}" class="layui-input">
+								<label class="hid layui-input layui-word-aux">正确答案是
+                                    <p class="layui-inline" style="color:red;">{{$value.right}}</p>
+                                </label>
+								<div class="layui-input-inline">
+									<input type="text" name="right" placeholder="请输入答案" class="layui-input">
+								</div>
+                            </div>
+                        </div>
+						{{ /each }}
+                        <div class="layui-form-item">
+							<div class="layui-input-block">
+							<a href="#" id="sho" class="layui-btn">
+								立即提交</a>
+								<button type="reset" class="layui-btn layui-btn-lg layui-btn-primary">重置</button>
+							</div>
+						</div>
+                    </form>
+                </div>
+        </fieldset>
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+   
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+    $(function() {
+		$('.hid').hide();
+		$('#sho').on("click",function(){
+			$('.hid').show();
+		})
+	})
+    
+</script>
+</body>
+</html>

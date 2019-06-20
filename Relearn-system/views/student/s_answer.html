@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          学生用户
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="s_info">基本资料</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item">
+			<a href="javascript:;">通知公告</a>
+			<dl class="layui-nav-child">
+				<dd><a href="s_notice">系统消息</a></dd>
+			</dl>
+		</li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="s_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">重学报名</a>
+          <dl class="layui-nav-child">
+            <dd><a href="s_enroll">报名入口</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="s_tabll">课表查询</a></dd>
+                <dd><a href="s_exam">考试信息</a></dd>
+            </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">成绩查询</a>
+            <dl class="layui-nav-child">
+                <dd><a href="s_result">重修成绩</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+			<a href="javascript:;">线上辅导</a>
+			<dl class="layui-nav-child">
+				<dd><a class="layui-this" href="s_ask">答疑解惑</a></dd>
+				<dd><a href="s_test">线上测试</a></dd>
+			</dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+		<div style="padding: 15px;">
+			<fieldset class="layui-elem-field">
+				<legend>线上辅导 -回答详情</legend>
+				<hr class="layui-bg-gray">
+				<div class="layui-field-box">
+                    {{each qu}}
+					<div class="layui-card">
+                        <div class="layui-row">
+                            <div class="layui-col-md9">
+                                <div class="layui-card-header"><h3><i class="layui-icon" style="font-size: 30px;color:#5FB878;">&#xe611;</i>问题: <p class="layui-inline">{{$value.title}}</p></h3></div>
+                            </div>
+                            <div class="layui-col-md2">
+                                <a href="s_quest"><i class="layui-icon" style="font-size: 30px;color:#5FB878;">&#xe6b2;</i>我要提问</a>
+                            </div>
+                        </div>
+
+						<div class="layui-card-body">
+							<div class="layui-row">
+								<div class="layui-col-md3">
+									<span class="layui-word-aux">提问人：</span> <h3 class="layui-inline">{{$value.name}}</h3>
+								</div>
+								<div class="layui-col-md3">
+									<span class="layui-word-aux">提问于：</span> <h3 class="layui-inline">{{$value.time}}</h3>
+								</div>
+							</div>
+							<hr class="layui-bg-cyan">
+							<p class="layui-text" style="font-size:15px;text-indent:2em;">{{$value.content}}</p>
+						</div>
+					</div>
+				    {{/each}}
+                    <div class="layui-card">
+                        <div class="layui-row">
+                            <div class="layui-col-md5">
+                                <h2 style="font-weight: bold"><i class="layui-icon layui-icon-face-smile" style="font-size: 30px; color: #1E9FFF;">&#xe60a;</i>所有回答</h2>
+                            </div>
+                            <div class="layui-col-md3">
+                                <button type="button" id="hid" class="layui-btn layui-btn-lg">
+                                    <i class="layui-icon">&#xe642;</i>回复
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+                        <form id="answer_form" class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <textarea name="answer" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                </div>
+                            </div>
+                            <input type="hidden" name="time" id="time">
+                            <input type="hidden" name="name" value="{{st[0].name}}">
+                            <input type="hidden" name="qno" value="{{qu[0].qno}}">
+                            <a href="/s_answer?qno={{qu[0].qno}}" style="float: right;margin-right: 70px" type="submit" class="layui-btn layui-btn-lg" lay-submit lay-filter="formDemo" id="sub">回复</a>
+                            <hr>
+                        </form>
+                        {{ each an }}
+                        <div class="layui-card-body">
+                            <div class="layui-row">
+                                <div class="layui-col-md3">
+                                    <span class="layui-word-aux">回复人：</span> <h3 class="layui-inline">{{$value.name}}</h3>
+                                </div>
+                                <div class="layui-col-md4">
+                                    <span class="layui-word-aux">回复于：</span> <h3 class="layui-inline">{{$value.time}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-item" style="text-indent: 2em;margin: 3px 2px;">{{$value.answer}}</div>
+
+                        <hr class="layui-bg-gray">
+                        {{ /each }}
+                    </div>
+				</div>
+			</fieldset>
+		</div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        <!--<P id="time">afwef</P>-->
+    </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+    $(function(){
+        //处理时间格式
+        function dateForm() {
+            let dt = new Date()
+            let y = dt.getFullYear()
+            //padStart填充字符串 使时间为两位数
+            let m = (dt.getMonth() + 1).toString().padStart(2,'0')
+            let d = dt.getDate().toString().padStart(2,'0')
+            let hh = dt.getHours().toString().padStart(2,'0')
+            let mm = dt.getMinutes().toString().padStart(2,'0')
+            let ss = dt.getSeconds().toString().padStart(2,'0')
+
+            return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
+        }
+        var t= dateForm();
+        $("#time").val(t)
+    });
+    $(function(){
+        $('#answer_form').hide();
+        $('#hid').on('click', function () {
+            $('#answer_form').show();
+        });
+        //$('#sub').on('click', function () {
+        //    $('#answer_form').hide();
+       //});
+    });
+
+    $('#answer_form').on('submit', function (e) {
+        e.preventDefault()
+        //序列化表单数据
+        var formData = $(this).serialize()
+        console.log(formData)
+        $.ajax({
+            url: '/s_answer',
+            type: 'post',
+            data: 'formData',
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 500){
+                    window.alert('发布通告失败。')
+                }else if(err_code == 13){
+                    window.alert('发表成功！')
+                    window.location.href = 'ad_answer'
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

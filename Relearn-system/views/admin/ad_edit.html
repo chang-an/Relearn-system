@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          {{ user.account }}
+        </a>
+        <dl class="layui-nav-child">
+            <dd><a href="ad_info">基本资料</a></dd>
+            <dd><a href="ad_notice">回到首页</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a href="ad_notice">通知公告</a></li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">系统通知</a>
+		  <dl class="layui-nav-child">
+            <dd><a href="ad_pull">发布公告</a></dd>
+          </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">课程管理</a>
+            <dl class="layui-nav-child">
+                <dd><a href="ad_course">添加课程</a></dd>
+				<dd><a href="ad_showc">课程信息</a></dd>
+            </dl>
+        </li>
+		<li class="layui-nav-item">
+            <a href="javascript:;">报名管理</a>
+            <dl class="layui-nav-child">
+				<dd><a href="ad_state">缴费状态</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item layui-nav-itemed">
+          <a href="javascript:;">用户管理</a>
+          <dl class="layui-nav-child">
+			<dd><a href="ad_create">添加用户</a></dd>
+            <dd><a href="ad_users">用户列表</a></dd>
+			<dd><a href="ad_result">查看成绩</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>用户管理 - 修改信息</legend>
+                <div class="layui-field-box">
+                    <form id="edit_form" class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">账号</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="sno" value="{{ stu.sno }}"  class="layui-input">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="name" value="{{ stu.name }}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">权限</label>
+                            <div class="layui-input-inline layui-select-title">
+                                <select name="level" lay-verify="required">
+                                <option value="0">学生</option>
+                                <option value="1">教师</option>
+                                <option value="2">管理员</option>
+                                </select>
+                            </div>
+                        </div> 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block">
+                            <input type="radio" name="sex" value="0" title="男" checked>
+                            <input type="radio" name="sex" value="1" title="女">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <label class="layui-form-label">院系</label>
+                            <div class="layui-input-inline">
+								<select name="college" lay-verify="required">
+									<option value="{{ stu.college }}">{{ stu.college }}</option>
+									<option value="经济管理学院">经济管理学院</option>
+									<option value="石油工程学院">石油工程学院</option>
+									<option value="材料院">材料院</option>
+									<option value="计算机学院">计算机学院</option>
+								</select>
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <label class="layui-form-label">年级</label>
+                            <div class="layui-input-inline">
+								<select name="grade">
+									<option value="{{ stu.grade }}">{{ stu.grade }}</option>
+									<option value="2015">2015</option>
+									<option value="2016">2016</option>
+									<option value="2017">2017</option>
+									<option value="2018">2018</option>
+								</select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">专业</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="major" value="{{ stu.major }}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">班级</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="class" value="{{ stu.class }}" class="layui-input">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <label class="layui-form-label">重学科目</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="course" value="{{ stu.course }}" class="layui-input">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <label class="layui-form-label">报名状态</label>
+                            <div class="layui-input-block">
+                            <input type="radio" name="enroll" value="未报名" title="未报名" checked>
+                            <input type="radio" name="enroll" value="已报名" title="已报名">
+                            </div>
+                        </div>
+						<div class="layui-form-item">
+                            <label class="layui-form-label">缴费状态</label>
+                            <div class="layui-input-block">
+                            <input type="radio" name="state" value="未缴费" title="未缴费" checked>
+                            <input type="radio" name="state" value="已缴费" title="已缴费">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">联系电话</label>
+                            <div class="layui-input-inline">
+                            <input type="text" name="tel" value="{{ stu.tel }}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </fieldset>
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+   
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+    $('#create_form').on('submit', function (e) {
+        e.preventDefault()
+        //序列化表单数据
+        var formData = $(this).serialize()
+        $.ajax({
+            url: '/ad_edit',
+            type: 'post',
+            data: 'formData',
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 500){
+                    window.alert('失败')
+
+                }else if(err_code == 0){
+                    window.alert('成功')
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

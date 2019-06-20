@@ -1,0 +1,115 @@
+body {
+    font-family: 'sans-serif';
+}
+.layui-container{
+	background-color:#ccc;
+}
+.layui-col-md9 span{
+	display:block;
+	width:100%;
+	height:5px;
+	background-color:#E7EAEC;
+}
+.layui-col-md9 .t-paper{
+	width:100%;
+	min-height:350px;
+}
+.layui-col-md3{
+	border:1px solid pink;
+}
+.layui-col-md3 span{
+	display:block;
+	width:90%;
+	height:5px;
+	background-color:#E7EAEC;
+}
+.layui-col-md3 .layui-card-body{
+	position:fixed;
+	border:1px dotted #ccc;
+}
+
+.layui-col-md3 .layui-card-body li{
+	margin:8px -15px;
+	padding:5px 0;
+	font-size:16px;
+	font-weight:bold;
+	background-color:#ECF1F4;
+}
+.layui-col-md3 .layui-card-body li:hover{
+	border:1px solid #4CD3FF;
+	cursor: pointer; 
+}
+.layui-col-md3 .layui-card-body li .layui-icon{
+	vertical-align:middle;
+	margin:0 10px;
+	font-size:17px; 
+	color:#676A6C;
+}
+.layui-col-md3 .layui-card-body li .icon-radio{
+	margin:0 75px;
+	font-size:20px; 
+	color:#48B6EE;
+}
+.btn{
+	margin-left:130px;
+}
+.t-li{
+	width:90%;
+	padding:5px;
+	margin:1px 10px;
+	border:1px solid pink;
+}
+.layui-form input[type=checkbox], .layui-form input[type=radio], .layui-form select {
+	display: inline;
+}
+.op-text{
+	margin-left:90px;
+}
+.op-radio{
+	margin-right:8px;
+}
+#add-op{
+	float: right;
+	width: 12%;
+	height:40px;
+	margin-right: 15%;
+	text-align: center;
+	cursor: pointer;
+}
+#add-op i{
+	margin-right: 5px;
+}
+.input-size{
+	width:50%;
+	height:27px;
+}
+.label-sc{
+	float:right;
+
+}
+.input-sc{
+	float:right;
+	height:25px;
+	width:70px;
+	margin-top:5px;
+}
+.judge{
+	width:90%;
+	height:140px;
+	padding:5px;
+	margin:5px 10px;
+	border:1px solid pink;
+}
+.fill .fill-input{
+	margin-left: 110px;
+}
+.fill-input .fill-size{
+	width:20%;
+	height:25px;
+}
+.fill{
+	width: 90%;
+	min-height: 110px;
+	margin: 5px 10px;
+	border: 1px solid pink;
+}

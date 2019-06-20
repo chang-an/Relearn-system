@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+	  <div class="layui-header">
+		<div class="layui-logo">西石大经管院重学辅助系统</div>
+		<!-- 头部区域（可配合layui已有的水平导航） -->
+		<ul class="layui-nav layui-layout-right">
+		  <li class="layui-nav-item">
+			<a href="javascript:;">
+			  <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+			  {{ user.account }}
+			</a>
+			<dl class="layui-nav-child">
+			  <dd><a href="t_info">基本资料</a></dd>
+			  <dd><a href="t_notice">回到首页</a></dd>
+			</dl>
+		  </li>
+		  <li class="layui-nav-item"><a href="logout">退出</a></li>
+		</ul>
+	  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a  href="t_notice">通知公告</a></li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">学生管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_stu">学生名单</a></dd>
+			<dd><a href="t_result">录入成绩</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a class="layui-this" href="t_tabll">课表查询</a></dd>
+                <dd><a href="t_exam">考试信息</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+                <a href="javascript:;">线上辅导</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="t_quest">答疑解惑</a></dd>
+					<dd><a href="t_test">线上出题</a></dd>
+                </dl>
+            </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>课程信息-课表查询</legend>
+            <div class="layui-field-box">
+				<form id="tabll_form" class="layui-form" action="">
+					<table class="layui-table" lay-skin="line">
+						<tbody>
+							<tr>
+								<input type="hidden" name="cno" value="{{cor[0].cno}}" class="layui-input">
+							  <td colspan="5" style="font-weight:bold;text-align:center">我的课表</td>
+							</tr>
+							<tr>
+								<td width="25%" style="width:18%;text-align:right">职工号：</td>
+								<td width="25%">{{ tec[0].tno }}</td>
+								<td width="25%" style="width:18%;text-align:right">姓名：</td>
+								<td>{{ tec[0].name }}</td>
+							</tr>
+							<tr>
+								<td width="25%" style="width:18%;text-align:right">院系：</td>
+								<td width="25%">{{ tec[0].college }}</td>
+								<td width="25%" style="width:18%;text-align:right">辅导课程：</td>
+								<td>{{ tec[0].course }}</td>
+							</tr>
+							<tr>
+								<td width="25%" style="width:18%;text-align:right">上课时间：</td>
+								<td width="40%">
+								<div class="layui-form-item">
+								  <div class="layui-inline">
+									<div class="layui-input-inline" style="width: 200px;">
+									  <input type="text" name="ctime" value="{{cor[0].ctime}}" class="layui-input">
+									</div>
+									<div class="layui-input-inline" style="width: 100px;">
+									  <button lay-submit lay-filter="formDemo" class="layui-btn layui-btn-normal layui-btn-sm">录入上课时间</button>
+									</div>
+								  </div>
+								</div>
+								</td>
+								<td width="25%" style="width:18%;text-align:right">教室：</td>
+								<td>{{ cor[0].cplace }}</td>
+							</tr>
+					  </tbody>
+					</table>
+				</form>
+            </div>
+        </fieldset>
+    </div>
+  </div>
+ 
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+	$('#tabll_form').on('submit', function (e) {
+		e.preventDefault()
+		//序列化表单数据
+		var formData = $(this).serialize()
+		console.log(formData)
+		$.ajax({
+			url: '/t_tabll',
+			type: 'post',
+			data: 'formData',
+			dataType: 'json',
+			success: function (data) {
+				var err_code = data.err_code
+				if (err_code === 500){
+					window.alert('发布通告失败。')
+				}else if(err_code == 0){
+					window.alert('发布通告成功！')
+					window.location.href = 'ad_notice'
+				}
+			}
+		})
+	})
+</script>
+</body>
+</html>

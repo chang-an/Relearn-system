@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+	<div class="layui-layout layui-layout-admin">
+	  <div class="layui-header">
+		<div class="layui-logo">西石大经管院重学辅助系统</div>
+		<!-- 头部区域（可配合layui已有的水平导航） -->
+		<ul class="layui-nav layui-layout-right">
+		  <li class="layui-nav-item">
+			<a href="javascript:;">
+			  <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+			  {{ user.account }}
+			</a>
+			<dl class="layui-nav-child">
+			  <dd><a href="t_info">基本资料</a></dd>
+			  <dd><a href="t_notice">回到首页</a></dd>
+			</dl>
+		  </li>
+		  <li class="layui-nav-item"><a href="logout">退出</a></li>
+		</ul>
+	  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a  href="t_notice">通知公告</a></li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">学生管理</a>
+          <dl class="layui-nav-child">
+            <dd><a class="layui-this" href="t_stu">学生名单</a></dd>
+			<dd><a href="t_result">录入成绩</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="t_tabll">课表查询</a></dd>
+                <dd><a href="t_exam">考试信息</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+                <a href="javascript:;">线上辅导</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="t_quest">答疑解惑</a></dd>
+					<dd><a href="t_test">线上出题</a></dd>
+                </dl>
+            </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>学生管理-学生名单</legend>
+            <div class="layui-field-box">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="150">
+                        <col width="200">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                        <th>学号</th>
+                        <th>姓名</th>
+                        <th>性别</th>
+						<th>年级</th>
+                        <th>专业</th>
+						<th>报名状态</th>
+                        <th>联系电话</th>
+                        </tr> 
+                    </thead>
+                    <tbody>
+					{{ each stu}}
+						<tr>
+							<td>{{ $value.sno }}</td>
+							<td>{{ $value.name }}</td>
+                            {{if $value.sex == 0}}
+                            <td>{{@ "男"}}</td>
+                            {{else value.sex == 1}}
+                            <td>{{@ "女"}}</td>
+                            {{/if}}
+							<td>{{ $value.grade }}</td>
+							<td>{{ $value.major }}</td>
+							<td>{{ $value.enroll }}</td>
+							<td>{{ $value.tel }}</td>
+                        </tr>
+					{{ /each}}
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>西石大经管院重学辅助系统</title>
+    <link rel="stylesheet" type="text/css" href="../public/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="../public/css/login.css" />
+</head>
+<body class="beg-login-bg">
+    <div class="beg-login-box">
+        <header>
+            <h1>西石大经管院重学辅助系统</h1>
+        </header>
+        <div class="beg-login-main">
+            <form action="login.html" class="layui-form" id="login_form" method="post">
+                <div class="layui-form-item">
+                    <label class="beg-login-icon">
+                        <i class="layui-icon">&#xe612;</i>
+                    </label>
+                    <input type="text" lay-verify="required" name="account" autocomplete="off" placeholder="这里输入账号" class="layui-input" lay-verType="tips" >
+                </div>
+                <div class="layui-form-item">
+                    <label class="beg-login-icon">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+                    <input type="password" lay-verify="required" name="password" autocomplete="off" placeholder="这里输入密码" class="layui-input" lay-verType="tips" >
+                </div>
+                <div class="layui-form-item">
+                    <div class="beg-pull">
+                        <button type="submit" class="layui-btn layui-btn-normal" style="width:30%" lay-submit lay-filter="formDemo">登 录</button>
+						<button type="button" class="layui-btn layui-btn-normal r-btn" style="width:30%" lay-submit lay-filter="formDemo">忘记密码</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <footer>
+			<p>auther@hua</p>
+        </footer>
+    </div>
+
+	<script type="text/javascript" src="../public/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../public/layui/layui.js"></script>
+    <script>
+        $('#login_form').on('submit', function (e) {
+            e.preventDefault()
+            var formData = $(this).serialize()
+            console.log(formData)
+            //表单异步提交
+            $.ajax({
+                url: '/login',
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    var err_code = data.err_code
+                    if (err_code === 0) {
+                        window.location.href = 's_notice'
+                    } else if(err_code === 1) {
+                        window.location.href = 't_notice'
+                    }else if(err_code === 2) {
+                        window.location.href = 'ad_notice'
+                    } else if(err_code === -1){
+                        window.alert('账号或者密码错误.')
+                    } else if(err_code === 500){
+                        window.alert('服务器繁忙.')
+                    }
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>

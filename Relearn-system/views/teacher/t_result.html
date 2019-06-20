@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+  <link rel="stylesheet" href="../../public/css/global.css">
+  <link rel="stylesheet" href="../../public/icheck/minimal/red.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          教师用户
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="t_info">基本资料</a></dd>
+          <dd><a href="t_notice">回到首页</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a  href="t_notice">通知公告</a></li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">学生管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_stu">学生名单</a></dd>
+			<dd><a class="layui-this" href="t_result">录入成绩</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="t_tabll">课表查询</a></dd>
+                <dd><a href="t_exam">考试信息</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+                <a href="javascript:;">线上辅导</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="t_quest">答疑解惑</a></dd>
+					<dd><a href="t_test">线上出题</a></dd>
+                </dl>
+            </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>学生管理 - 录入成绩</legend>
+            <div class="layui-field-box">
+              <form id="result_form" class="layui-form" action="">
+                <div class="layui-form-item" style="text-align:center;">
+                  <div class="layui-inline">
+                    <div class="layui-input-inline">
+                      <input autocomplete="off" class="layui-input" placeholder="请输入名称" type="text" value="">
+                    </div>
+                  </div>
+                  <div class="layui-inline" style="text-align:left;">
+                    <div class="layui-input-inline">
+                      <button class="layui-btn"><i class="layui-icon">&#xe615;</i>查询</button>
+                    </div>
+                  </div>
+                </div>
+              <hr>
+			   <div class="layui-row">
+					<div class="layui-col-md9">
+						<button type="reset" class="layui-btn layui-btn-xs">
+							<i class="layui-icon">&#xe669;</i>重置
+						</button>
+					</div>
+					<div class="layui-col-md3">
+					<button lay-submit lay-filter="formDemo" class="layui-btn layui-btn-xs">
+                      <i class="layui-icon">&#xe62f;</i>录入系统
+					</button>
+					</div>
+				</div>
+              <hr>
+              <table class="layui-table">
+                  <colgroup>
+                      <col width="150">
+                      <col width="150">
+                      <col width="200">
+                      <col>
+                      <col>
+                  </colgroup>
+                  <thead>
+                      <tr>
+                          <th>学号</th>
+                          <th>姓名</th>
+						  <th>班级</th>
+                          <th>重修课程</th>
+                          <th>考试成绩</th>
+                  </thead>
+                  <tbody>
+                {{each st}}
+                      <tr>
+                          <td>{{$value.sno}}</td>
+                          <td>{{$value.name}}</td>
+                          <td>{{$value.class}}</td>
+                          <td>{{$value.course}}</td>
+                          <td><div class="layui-form-item">
+                              <div class="layui-input-inline">
+                                  <input type="text" name="exam"  placeholder="{{$value.exam}}" class="layui-input">
+                              </div>
+                          </div>
+                              <div class="layui-form-item">
+                                  <div class="layui-input-inline">
+                                      <input type="hidden" name="sno" value="{{$value.sno}}" class="layui-input">
+                                  </div>
+                              </div>
+						  </td>
+                       </tr>
+                {{/each}}
+				 </tbody>
+			  </table>
+			 </form>
+		  </div>
+	  </fieldset>
+   </div>
+</div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+   
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script>
+    $('#result_form').on('submit', function (e) {
+        e.preventDefault()
+        //序列化表单数据
+        var formData = $(this).serialize()
+        console.log(formData)
+        $.ajax({
+            url: '/t_result',
+            type: 'post',
+            data: 'formData',
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 500){
+                    window.alert('失败')
+
+                }else if(err_code == 0){
+                    window.alert('成功')
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

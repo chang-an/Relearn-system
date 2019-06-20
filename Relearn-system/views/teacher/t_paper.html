@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>西石大经管院重学辅助系统</title>
+  <link rel="stylesheet" href="../../public/layui/css/layui.css">
+  <link rel="stylesheet" href="../../public/css/t_test.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">西石大经管院重学辅助系统</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          教师用户
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="t_info">基本资料</a></dd>
+          <dd><a href="t_notice">回到首页</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="logout">退出</a></li>
+    </ul>
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item"><a href="t_notice">通知公告</a></li>
+        <li class="layui-nav-item">
+          <a class="" href="javascript:;">资料设置</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_info">个人信息</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">学生管理</a>
+          <dl class="layui-nav-child">
+            <dd><a href="t_stu">学生名单</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">课程信息</a>
+            <dl class="layui-nav-child">
+                <dd><a href="t_tabll">课表查询</a></dd>
+                <dd><a href="t_exam">考试信息</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+                <a href="javascript:;">线上辅导</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="t_quest">答疑解惑</a></dd>
+					<dd><a href="t_test">线上出题</a></dd>
+                </dl>
+            </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+        <fieldset class="layui-elem-field">
+            <legend>线上辅导-线上出题</legend>
+            <div class="layui-field-box">
+				<div class="layui-form-item">
+					<label class="layui-form-label">试卷编号</label>
+					<div class="layui-input-inline">
+					  <input type="text" name="paper" value="{{par[0].pno}}" readonly="readonly" class="layui-input">
+					</div>
+					<label class="layui-form-label">科目:</label>
+					<div class="layui-input-inline">
+					  <input type="text" name="course" value="{{par[0].course}}" readonly="readonly" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-container">  
+					<div class="layui-row">
+						<div class="layui-col-md9 layui-card-header">
+							<h3>在此处编辑您的试题：</h3>
+							<span></span>
+							<form id="paper_form" class="layui-form" action="" method="post" >
+								<div  class="t-paper">
+									<ul>
+									</ul>
+								</div>
+								<div class="btn">
+                                    <input type="hidden" name="pno" value="{{par[0].pno}}">
+									<button type="submit" lay-submit lay-filter="formDemo" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">下一题</button>
+									<a href="t_test" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal">完 成</a>
+								</div>
+							</form>
+						</div>
+						<div class="layui-col-md3 layui-card-header">
+							<h3>请选择题型</h3>
+							<span></span>
+							<div class="layui-card-body">
+								<ul>
+									<li><i class="layui-icon">&#xe61f;</i>单选题<i class="layui-icon icon-radio">&#xe60a;</i></li>
+									<li><i class="layui-icon">&#xe61f;</i>多选题<i class="layui-icon icon-radio">&#xe62a;</i></li></li>
+									<li><i class="layui-icon">&#xe61f;</i>判断题<i class="layui-icon icon-radio">&#x1005;</i></li></li>
+									<li><i class="layui-icon">&#xe61f;</i>填空题<i class="layui-icon icon-radio">&#xe63c;</i></li></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </fieldset>
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    
+  </div>
+</div>
+<script type="text/javascript" src="../../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../public/layui/layui.js"></script>
+<script type="text/javascript" src="../../public/js/dw_form_submit.js"></script>
+<script type="text/javascript" src="../../public/js/t_test.js"></script>
+<script>
+    $('#paper_form').on('submit', function (e) {
+        e.preventDefault()
+        //序列化表单数据
+        var formData = $(this).serialize()
+        $.ajax({
+            url: '/t_paper',
+            type: 'post',
+            data: 'formData',
+            dataType: 'json',
+            success: function (data) {
+                var err_code = data.err_code
+                if (err_code === 500){
+                    window.alert('失败')
+
+                }else if(err_code == 0){
+                    window.alert('成功')
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
